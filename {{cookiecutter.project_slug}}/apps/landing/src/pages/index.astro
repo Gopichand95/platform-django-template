@@ -1,0 +1,69 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Button } from '@workspace/ui/components/button';
+---
+
+<Layout title="{{ cookiecutter.project_name }}">
+  <main class="container mx-auto px-4 py-16">
+    <!-- Hero Section -->
+    <section class="flex flex-col items-center justify-center py-20 text-center">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
+        {{ cookiecutter.project_name }}
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-muted-foreground">
+        {{ cookiecutter.description }}
+      </p>
+      <div class="mt-10 flex gap-4">
+        <Button asChild size="lg">
+          <a href="/app/">Get Started</a>
+        </Button>
+        <Button variant="outline" size="lg" asChild>
+          <a href="/accounts/login/">Sign In</a>
+        </Button>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20">
+      <h2 class="text-center text-3xl font-bold">Features</h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-3">
+        <div class="rounded-lg border p-6">
+          <h3 class="text-xl font-semibold">Feature One</h3>
+          <p class="mt-2 text-muted-foreground">
+            Description of the first feature and why it's valuable.
+          </p>
+        </div>
+        <div class="rounded-lg border p-6">
+          <h3 class="text-xl font-semibold">Feature Two</h3>
+          <p class="mt-2 text-muted-foreground">
+            Description of the second feature and why it's valuable.
+          </p>
+        </div>
+        <div class="rounded-lg border p-6">
+          <h3 class="text-xl font-semibold">Feature Three</h3>
+          <p class="mt-2 text-muted-foreground">
+            Description of the third feature and why it's valuable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 text-center">
+      <h2 class="text-3xl font-bold">Ready to get started?</h2>
+      <p class="mt-4 text-muted-foreground">
+        Create your account today and start building.
+      </p>
+      <Button asChild size="lg" class="mt-8">
+        <a href="/accounts/signup/">Sign Up Free</a>
+      </Button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t py-8">
+    <div class="container mx-auto px-4 text-center text-sm text-muted-foreground">
+      <p>&copy; {new Date().getFullYear()} {{ cookiecutter.project_name }}. All rights reserved.</p>
+    </div>
+  </footer>
+</Layout>

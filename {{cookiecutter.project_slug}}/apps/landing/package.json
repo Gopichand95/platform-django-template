@@ -1,0 +1,38 @@
+{
+  "name": "landing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,astro}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,astro}\"",
+    "typecheck": "astro check && tsc --noEmit"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/react": "^4.2.1",
+    "@workspace/ui": "workspace:*",
+    "astro": "^5.9.0",
+    "lucide-react": "^0.554.0",
+    "posthog-js": "^1.194.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/prettier-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.39.1",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.9.3"
+  },
+  "prettier": "@workspace/prettier-config"
+}

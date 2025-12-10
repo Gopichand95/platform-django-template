@@ -1,0 +1,113 @@
+# lefthook.yml
+# Parallel execution enabled for faster hook runs
+
+pre-commit:
+  parallel: true
+  commands:
+    # === File validation ===
+    trailing-whitespace:
+      glob: "*.{py,ts,tsx,js,jsx,json,yaml,yml,toml,md,html,css}"
+      exclude: "^docs/|/migrations/|devcontainer.json"
+      run: |
+        for file in {staged_files}; do
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' 's/[[:space:]]*$//' "$file"
+          else
+            sed -i 's/[[:space:]]*$//' "$file"
+          fi
+        done
+      stage_fixed: true
+
+    end-of-file-fixer:
+      glob: "*.{py,ts,tsx,js,jsx,json,yaml,yml,toml,md,html,css}"
+      exclude: "^docs/|/migrations/|devcontainer.json"
+      run: |
+        for file in {staged_files}; do
+          if [ -f "$file" ] && [ -s "$file" ] && [ -n "$(tail -c1 "$file")" ]; then
+            echo "" >> "$file"
+          fi
+        done
+      stage_fixed: true
+
+    check-json:
+      glob: "*.json"
+      exclude: "^docs/|/migrations/|devcontainer.json|\\.vscode/settings\\.json"
+      run: python3 -c "import json, sys; [json.load(open(f)) for f in sys.argv[1:]]" {staged_files}
+
+    check-toml:
+      glob: "*.toml"
+      exclude: "^docs/|/migrations/"
+      run: python3 -c "import tomllib, sys; [tomllib.load(open(f,'rb')) for f in sys.argv[1:]]" {staged_files}
+
+    check-yaml:
+      glob: "*.{yaml,yml}"
+      exclude: "^docs/|/migrations/|devcontainer.json|pnpm-lock\\.yaml"
+      run: python3 -c "import yaml, sys; [yaml.safe_load(open(f)) for f in sys.argv[1:]]" {staged_files}
+
+    check-xml:
+      glob: "*.xml"
+      exclude: "^docs/|/migrations/"
+      run: python3 -c "from xml.etree import ElementTree as ET; import sys; [ET.parse(f) for f in sys.argv[1:]]" {staged_files}
+
+    debug-statements:
+      glob: "*.py"
+      exclude: "^docs/|/migrations/"
+      run: "! grep -n -E '^\\s*(import pdb|from pdb import|import ipdb|from ipdb import|breakpoint\\(\\))' {staged_files}"
+
+    detect-private-key:
+      exclude: "lefthook.yml"
+      run: "! grep -rn 'PRIVATE KEY-----' {staged_files}"
+
+    # === Python formatting ===
+    django-upgrade:
+      glob: "*.py"
+      exclude: "^docs/|/migrations/"
+      run: django-upgrade --target-version 5.0 {staged_files}
+      stage_fixed: true
+
+    ruff-check:
+      glob: "*.py"
+      exclude: "^docs/|/migrations/"
+      run: ruff check --fix --exit-non-zero-on-fix {staged_files}
+      stage_fixed: true
+
+    ruff-format:
+      glob: "*.py"
+      exclude: "^docs/|/migrations/"
+      run: ruff format {staged_files}
+      stage_fixed: true
+
+    # === Django templates ===
+    djlint-reformat:
+      glob: "*.html"
+      root: "{{ cookiecutter.project_slug }}/templates/"
+      run: djlint --reformat {staged_files}
+      stage_fixed: true
+
+    djlint-lint:
+      glob: "*.html"
+      root: "{{ cookiecutter.project_slug }}/templates/"
+      run: djlint {staged_files}
+
+    # === Python testing & type checking ===
+    mypy:
+      glob: "*.py"
+      exclude: "^docs/|/migrations/"
+      run: mypy . --config-file=pyproject.toml
+
+    # === Frontend ===
+    turbo-typecheck:
+      glob: "*.{ts,tsx}"
+      exclude: "node_modules|dist|\\.next"
+      run: pnpm turbo typecheck
+
+    turbo-lint:
+      glob: "*.{ts,tsx,js,jsx}"
+      exclude: "node_modules|dist|\\.next"
+      run: pnpm turbo lint
+
+    prettier:
+      glob: "*.{ts,tsx,js,jsx,json,css,md}"
+      exclude: "node_modules|dist|\\.next|src/services/{{ cookiecutter.project_slug }}"
+      run: pnpm format
+      stage_fixed: true

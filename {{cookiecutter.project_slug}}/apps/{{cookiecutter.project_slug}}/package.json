@@ -1,0 +1,43 @@
+{
+  "name": "{{ cookiecutter.project_slug }}",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
+    "typecheck": "tsc --noEmit --project tsconfig.app.json",
+    "preview": "vite preview",
+    "openapi-ts": "openapi-ts"
+  },
+  "dependencies": {
+    "@hey-api/client-fetch": "^0.9.0",
+    "@tanstack/react-query": "^5.90.10",
+    "@tanstack/react-query-devtools": "^5.90.2",
+    "@workspace/ui": "workspace:*",
+    "lucide-react": "^0.554.0",
+    "posthog-js": "^1.194.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.9.6",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "0.87.5",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/prettier-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "^9.39.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.2"
+  },
+  "prettier": "@workspace/prettier-config"
+}

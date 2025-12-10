@@ -1,0 +1,37 @@
+# {{ pascalCase name }}
+
+{{ description }}
+
+## Getting Started
+
+### Development
+
+```bash
+pnpm dev
+```
+
+### Build
+
+```bash
+pnpm build
+```
+
+### Lint
+
+```bash
+pnpm lint
+```
+
+### Type Check
+
+```bash
+pnpm typecheck
+```
+
+## Tech Stack
+
+- **Framework**: Vite + React + TypeScript
+- **Styling**: Tailwind CSS v4{{#if includeReactRouter}}
+- **Routing**: React Router v7{{/if}}{{#if includeTanstackQuery}}
+- **State Management**: TanStack Query{{/if}}
+- **UI Components**: @workspace/ui

@@ -1,0 +1,24 @@
+import { StrictMode } from 'react';
+
+import { createRoot } from 'react-dom/client';
+{{#if includeReactRouter}}
+import { RouterProvider } from 'react-router';
+{{/if}}
+
+import './index.css';
+{{#if includeReactRouter}}
+import { router } from './router.tsx';
+{{/if}}
+{{#unless includeReactRouter}}
+import App from './App.tsx';
+{{/unless}}
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+{{#if includeReactRouter}}
+    <RouterProvider router={router} />
+{{else}}
+    <App />
+{{/if}}
+  </StrictMode>,
+);

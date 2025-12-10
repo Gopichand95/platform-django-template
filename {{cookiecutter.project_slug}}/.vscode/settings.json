@@ -1,0 +1,54 @@
+{
+  // Editor settings
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.semanticHighlighting.enabled": true,
+
+  "tailwindCSS.experimental.configFile": "packages/ui/src/styles/globals.css",
+
+  // Files settings
+  "files.eol": "\n",
+
+  // Language-specific settings
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "never",
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "python.languageServer": "None",
+  "python.testing.pytestEnabled": true,
+  "[python]": {
+    "editor.rulers": [89],
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll.pylance": "always",
+      "source.unusedImports": "always",
+      "source.convertImportFormat": "always"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+
+  // ESLint settings
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": ["./apps/{{ cookiecutter.project_slug }}"],
+
+  // Prettier settings
+  "prettier.requireConfig": true
+}

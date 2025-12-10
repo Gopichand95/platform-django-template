@@ -1,0 +1,46 @@
+# Config for Dependabot updates. See Documentation here:
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+enable-beta-ecosystems: true
+updates:
+  # Update Python deps for the template (not the generated project)
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "project infrastructure"
+    ignore:
+      - dependency-name: "ruff" # updated via PyUp
+
+  # Update GitHub actions in workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "project infrastructure"
+
+  # Update npm packages
+  - package-ecosystem: "npm"
+    directories:
+      - "{{cookiecutter.project_slug}}/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "update"
+
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    directories:
+      - "{{cookiecutter.project_slug}}/docker/local/django/"
+      - "{{cookiecutter.project_slug}}/docker/local/docs/"
+      - "{{cookiecutter.project_slug}}/docker/local/uv/"
+      - "{{cookiecutter.project_slug}}/docker/production/django/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "update"
+
+  # NOTE: Package ecosystem "docker-compose" can't handle Jinja tags in yml files

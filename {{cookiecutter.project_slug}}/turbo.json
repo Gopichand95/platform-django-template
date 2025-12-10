@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["VITE_*", "PUBLIC_*", "PROD", "DEV"],
+      "outputs": [".next/**", "!.next/cache/**", "next-env.d.ts", "dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "env": ["VITE_*", "PUBLIC_*", "PROD", "DEV"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

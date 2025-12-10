@@ -1,0 +1,19 @@
+import { createBrowserRouter } from 'react-router';
+
+import ErrorBoundary from '@/components/error-boundary';
+
+import App from './App';
+
+export const router = createBrowserRouter([
+  {
+    path: '/app',
+    element: <App />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        index: true,
+        element: <div>Home</div>,
+      },
+    ],
+  },
+]);

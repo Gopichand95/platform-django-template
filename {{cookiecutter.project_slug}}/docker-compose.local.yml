@@ -1,0 +1,99 @@
+volumes:
+  {{ cookiecutter.project_slug }}_local_postgres_data: {}
+  {% if cookiecutter.use_celery == 'y' %}{{ cookiecutter.project_slug }}_local_redis_data: {}{% endif %}
+
+services:
+  django:{% if cookiecutter.use_celery == 'y' %} &django{% endif %}
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    image: {{ cookiecutter.project_slug }}_local_django
+    container_name: {{ cookiecutter.project_slug }}_local_django
+    depends_on:
+      - postgres
+      {%- if cookiecutter.use_celery == 'y' %}
+      - redis
+      {%- endif %}
+      {%- if cookiecutter.use_mailpit == 'y' %}
+      - mailpit
+      {%- endif %}
+    volumes:
+      - /app/.venv
+      - .:/app:z
+    env_file:
+      - ./.env
+    ports:
+      - '8000:8000'
+    command: /start
+
+  tailwind_sidecar:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    container_name: {{ cookiecutter.project_slug }}_local_tailwind
+    depends_on:
+      - django
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app:z
+    command: python manage.py tailwind watch
+    tty: true
+
+  postgres:
+    image: docker.io/postgres:18
+    container_name: {{ cookiecutter.project_slug }}_local_postgres
+    volumes:
+      - {{ cookiecutter.project_slug }}_local_postgres_data:/var/lib/postgresql
+    env_file:
+      - ./.env
+
+  {%- if cookiecutter.use_mailpit == 'y' %}
+
+  mailpit:
+    image: docker.io/axllent/mailpit:latest
+    container_name: {{ cookiecutter.project_slug }}_local_mailpit
+    ports:
+      - "8025:8025"
+
+  {%- endif %}
+  {%- if cookiecutter.use_celery == 'y' %}
+
+  redis:
+    image: docker.io/redis:7.2
+    container_name: {{ cookiecutter.project_slug }}_local_redis
+    volumes:
+      - {{ cookiecutter.project_slug }}_local_redis_data:/data
+
+  celeryworker:
+    <<: *django
+    container_name: {{ cookiecutter.project_slug }}_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+      {%- if cookiecutter.use_mailpit == 'y' %}
+      - mailpit
+      {%- endif %}
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    container_name: {{ cookiecutter.project_slug }}_local_celerybeat
+    depends_on:
+      - redis
+      - postgres
+      {%- if cookiecutter.use_mailpit == 'y' %}
+      - mailpit
+      {%- endif %}
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    container_name: {{ cookiecutter.project_slug }}_local_flower
+    ports:
+      - '5555:5555'
+    command: /start-flower
+
+  {%- endif %}
