@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from {{ cookiecutter.project_slug }}.domain_events.base import DomainEvent
 
