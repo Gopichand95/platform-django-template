@@ -48,6 +48,7 @@ This template provides more than boilerplate—it establishes **architectural pa
    4-guides/adding-modules
    4-guides/module-boundary-enforcement
    4-guides/service-layer-patterns
+   4-guides/api-development
    4-guides/type-safe-api-integration
    4-guides/event-driven-architecture
    4-guides/production-patterns

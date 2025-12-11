@@ -56,6 +56,23 @@ Type Safety
 **oasdiff for breaking change detection**
     CI integration for detecting breaking API changes by diffing OpenAPI schemas. See :doc:`/4-guides/type-safe-api-integration`.
 
+API Frameworks
+--------------
+
+**use_graphql cookiecutter option**
+    GraphQL support via graphene-django or strawberry-graphql as an alternative to REST. See :doc:`/4-guides/api-development`.
+
+    - Schema generation and playground
+    - Integration with service layer patterns
+    - DataLoader configuration for N+1 prevention
+
+**use_ninja cookiecutter option**
+    django-ninja as an alternative API framework for async-first applications.
+
+    - FastAPI-style type-hint validation
+    - Native async support
+    - Pydantic schema integration
+
 Developer Experience
 --------------------
 
