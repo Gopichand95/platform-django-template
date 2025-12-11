@@ -46,6 +46,7 @@ This template provides more than boilerplate—it establishes **architectural pa
    :caption: Guides
 
    4-guides/adding-modules
+   4-guides/django-admin-operator-panel
    4-guides/module-boundary-enforcement
    4-guides/service-layer-patterns
    4-guides/api-development
