@@ -2,7 +2,7 @@
 
 {{ description }}
 
-[![Built with Cookiecutter Turbo Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/mascah/cookiecutter-turbo-django/)
+[![Built with Platform Django](https://img.shields.io/badge/built%20with-Platform%20Django-ff69b4.svg)](https://github.com/mascah/platform-django-template/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 {%- if open_source_license != "Not open source" %}
@@ -12,7 +12,7 @@ License: {{open_source_license}}
 
 ## Settings
 
-Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
+Moved to [settings](https://platform-django-template.readthedocs.io/en/latest/1-getting-started/settings.html).
 
 ## Basic Commands
 
@@ -96,7 +96,7 @@ docker compose -f docker-compose.local.yml up celerybeat
 In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
 
 Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html) for more details how to start all containers.
+Please check [Platform Django Docker documentation](https://platform-django-template.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html) for more details how to start all containers.
 
 With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
 
@@ -118,10 +118,10 @@ The following details how to deploy this application.
 
 ### Heroku
 
-See detailed [cookiecutter-django Heroku documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-on-heroku.html).
+See detailed [Platform Django Heroku documentation](https://platform-django-template.readthedocs.io/en/latest/3-deployment/deployment-on-heroku.html).
 
 {%- endif %}
 
 ### Docker
 
-See detailed [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).
+See detailed [Platform Django Docker documentation](https://platform-django-template.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).

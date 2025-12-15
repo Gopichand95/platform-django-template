@@ -1,7 +1,7 @@
-.. cookiecutter-turbo-django documentation master file.
+.. platform-django-template documentation master file.
 
-Welcome to Cookiecutter Turbo Django
-====================================
+Welcome to Platform Django
+==========================
 
 A project template for building **modular monolith** Django applications with modern frontend tooling.
 

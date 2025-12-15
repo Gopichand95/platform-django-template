@@ -1,4 +1,4 @@
-# cookiecutter-django documentation build configuration file.
+# platform-django documentation build configuration file.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -41,7 +41,7 @@ source_suffix = {
 master_doc = "index"
 
 # General information about the project.
-project = "Cookiecutter Turbo Django"
+project = "Platform Django"
 copyright = f"2024-{now.year}, Mike Ascah"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -165,7 +165,7 @@ html_static_path = ["_static"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "cookiecutter-djangodoc"
+htmlhelp_basename = "platform-djangodoc"
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -184,9 +184,9 @@ latex_elements = {
 latex_documents = [
     (
         "index",
-        "cookiecutter-django.tex",
-        "cookiecutter-django Documentation",
-        "cookiecutter-django",
+        "platform-django.tex",
+        "Platform Django Documentation",
+        "Platform Django",
         "manual",
     ),
 ]
@@ -219,8 +219,8 @@ latex_documents = [
 man_pages = [
     (
         "index",
-        "Cookiecutter Turbo Django",
-        "Cookiecutter Turbo Django documentation",
+        "Platform Django",
+        "Platform Django documentation",
         ["Mike Ascah"],
         1,
     ),
@@ -238,10 +238,10 @@ man_pages = [
 texinfo_documents = [
     (
         "index",
-        "Cookiecutter Turbo Django",
-        "Cookiecutter Turbo Django documentation",
+        "Platform Django",
+        "Platform Django documentation",
         "Mike Ascah",
-        "Cookiecutter Turbo Django",
+        "Platform Django",
         "A Copier template for creating production-ready Django projects quickly.",
         "Miscellaneous",
     )

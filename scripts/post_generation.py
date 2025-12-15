@@ -243,6 +243,42 @@ def install_pnpm_dependencies():
         print(WARNING + f"Error installing frontend dependencies: {e}" + TERMINATOR)
 
 
+def fix_python_formatting():
+    """Run ruff to fix Python import ordering after template generation.
+
+    Import order depends on the project_slug value which isn't known until generation.
+    For example, 'my_project' comes before 'rest_framework' alphabetically,
+    but 'zoo_project' comes after.
+    """
+    print(INFO + "Fixing Python import ordering with ruff..." + TERMINATOR)
+
+    try:
+        subprocess.run(["ruff", "check", "--select", "I", "--fix", "."], check=True, capture_output=True)
+        print(SUCCESS + "Python import ordering fixed!" + TERMINATOR)
+    except subprocess.CalledProcessError:
+        # Ruff might not be installed yet, try with uvx
+        try:
+            subprocess.run(["uvx", "ruff", "check", "--select", "I", "--fix", "."], check=True, capture_output=True)
+            print(SUCCESS + "Python import ordering fixed!" + TERMINATOR)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print(WARNING + "Could not run ruff. Run 'ruff check --fix .' manually." + TERMINATOR)
+    except FileNotFoundError:
+        print(WARNING + "ruff not found. Run 'ruff check --fix .' manually." + TERMINATOR)
+
+
+def fix_frontend_formatting():
+    """Run prettier to format frontend code after template generation."""
+    print(INFO + "Formatting frontend code with prettier..." + TERMINATOR)
+
+    try:
+        subprocess.run(["pnpm", "format"], check=True, capture_output=True)
+        print(SUCCESS + "Frontend code formatted!" + TERMINATOR)
+    except subprocess.CalledProcessError as e:
+        print(WARNING + f"Could not run prettier: {e}. Run 'pnpm format' manually." + TERMINATOR)
+    except FileNotFoundError:
+        print(WARNING + "pnpm not found. Run 'pnpm format' manually." + TERMINATOR)
+
+
 def main():
     # Load answers from Copier
     answers = load_copier_answers()
@@ -260,10 +296,12 @@ def main():
     if keep_local_envs_in_vcs:
         append_to_gitignore_file("!.env.example")
 
-    # Install dependencies (skip if COPIER_TEST_MODE is set)
+    # Install dependencies and run formatters (skip if COPIER_TEST_MODE is set)
     if not os.getenv("COPIER_TEST_MODE"):
         setup_python_dependencies()
         install_pnpm_dependencies()
+        fix_python_formatting()
+        fix_frontend_formatting()
 
     print(SUCCESS + "Project initialized, keep up the good work!" + TERMINATOR)
 

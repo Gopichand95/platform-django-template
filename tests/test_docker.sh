@@ -1,5 +1,5 @@
 #!/bin/sh
-# this is a very simple script that tests the docker configuration for the Turbo Django template
+# this is a very simple script that tests the docker configuration for the Platform Django template
 # it is meant to be run from the root directory of the repository, eg:
 # sh tests/test_docker.sh
 
@@ -10,7 +10,7 @@ set -e
 finish() {
   # Your cleanup code here
   docker compose -f docker-compose.local.yml down --remove-orphans
-  docker volume rm turbo_django_turbo_django_local_postgres_data
+  docker volume rm platform_django_platform_django_local_postgres_data
 
 }
 # the cleanup doesn't work in the github actions
@@ -23,11 +23,11 @@ fi
 mkdir -p .cache/docker
 cd .cache/docker
 
-sudo rm -rf turbo_django
+sudo rm -rf platform_django
 
 # create the project using the default settings in copier.yaml
-uv run copier copy ../../ turbo_django --trust --defaults "$@"
-cd turbo_django
+uv run copier copy ../../ platform_django --trust --defaults "$@"
+cd platform_django
 
 # make sure all images build
 docker compose -f docker-compose.local.yml build
@@ -37,7 +37,7 @@ docker compose -f docker-compose.local.yml run django uv lock
 docker compose -f docker-compose.local.yml build
 
 # run the project's type checks
-docker compose -f docker-compose.local.yml run --rm django mypy turbo_django
+docker compose -f docker-compose.local.yml run --rm django mypy platform_django
 
 # run the project's tests
 docker compose -f docker-compose.local.yml run --rm django pytest
@@ -75,7 +75,7 @@ docker build -f ./docker/production/django/Dockerfile -t django-prod .
 
 docker run --rm \
 --env-file .env \
---network turbo_django_default \
+--network platform_django_default \
 -e DJANGO_SECRET_KEY="$(openssl rand -base64 64)" \
 -e REDIS_URL=redis://redis:6379/0 \
 -e DJANGO_AWS_ACCESS_KEY_ID=x \

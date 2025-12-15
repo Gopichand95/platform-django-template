@@ -1,7 +1,7 @@
-# Copier Turbo Django
+# Platform Django
 
-[![Build Status](https://github.com/mascah/cookiecutter-turbo-django/actions/workflows/ci.yml/badge.svg)](https://github.com/mascah/cookiecutter-turbo-django/actions)
-[![Documentation Status](https://readthedocs.org/projects/cookiecutter-turbo-django/badge/?version=latest)](https://cookiecutter-turbo-django.readthedocs.io/)
+[![Build Status](https://github.com/mascah/platform-django-template/actions/workflows/ci.yml/badge.svg)](https://github.com/mascah/platform-django-template/actions)
+[![Documentation Status](https://readthedocs.org/projects/platform-django-template/badge/?version=latest)](https://platform-django-template.readthedocs.io/)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![Django 5.2](https://img.shields.io/badge/django-5.2-green.svg)](https://www.djangoproject.com/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -27,7 +27,7 @@ Heavily inspired by [cookiecutter-django](https://github.com/cookiecutter/cookie
 pip install copier
 
 # Generate your project
-copier copy gh:mascah/cookiecutter-turbo-django my_project --trust
+copier copy gh:mascah/platform-django-template my_project --trust
 
 # Follow the prompts, then see your generated project's README
 ```
@@ -43,12 +43,12 @@ copier update --trust
 
 ## Documentation
 
-Full documentation is available at **[cookiecutter-turbo-django.readthedocs.io](https://cookiecutter-turbo-django.readthedocs.io/)**
+Full documentation is available at **[platform-django-template.readthedocs.io](https://platform-django-template.readthedocs.io/)**
 
-- [Why This Template?](https://cookiecutter-turbo-django.readthedocs.io/en/latest/0-introduction/why-this-template-cited.html) - The modular monolith philosophy
-- [Project Generation Options](https://cookiecutter-turbo-django.readthedocs.io/en/latest/1-getting-started/project-generation-options.html) - All template configuration options
-- [Local Development](https://cookiecutter-turbo-django.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html) - Docker-based development workflow
-- [Deployment](https://cookiecutter-turbo-django.readthedocs.io/en/latest/3-deployment/deployment-on-heroku.html) - Heroku and AWS deployment guides
+- [Why This Template?](https://platform-django-template.readthedocs.io/en/latest/0-introduction/why-this-template-cited.html) - The modular monolith philosophy
+- [Project Generation Options](https://platform-django-template.readthedocs.io/en/latest/1-getting-started/project-generation-options.html) - All template configuration options
+- [Local Development](https://platform-django-template.readthedocs.io/en/latest/2-local-development/developing-locally-docker.html) - Docker-based development workflow
+- [Deployment](https://platform-django-template.readthedocs.io/en/latest/3-deployment/deployment-on-heroku.html) - Heroku and AWS deployment guides
 
 ## Generated Project Structure
 
@@ -78,7 +78,7 @@ my_project/
 | `use_heroku` | false | Heroku deployment configuration |
 | `username_type` | username | Authentication type (username or email) |
 
-See [all options](https://cookiecutter-turbo-django.readthedocs.io/en/latest/1-getting-started/project-generation-options.html) in the documentation.
+See [all options](https://platform-django-template.readthedocs.io/en/latest/1-getting-started/project-generation-options.html) in the documentation.
 
 ## Acknowledgments
 

@@ -1,4 +1,4 @@
-# Copier configuration for Turbo Django template
+# Copier configuration for Platform Django template
 # Migration from cookiecutter.json
 
 _min_copier_version: "9.0.0"
@@ -10,43 +10,44 @@ _subdirectory: template
 _jinja_extensions:
   - jinja2_time.TimeExtension
 
-# Files/directories to skip rendering (equivalent to _copy_without_render)
-# These contain Jinja-like syntax that shouldn't be processed
+# Files/directories to preserve if they already exist in destination
+# (useful when updating existing projects)
 _skip_if_exists:
   - turbo/generators/**/*
   - packages/**/*
 
 # Conditional file exclusions (replaces post_gen_project.py file removal logic)
+# Note: paths match source files which have .jinja suffix for template files
 _exclude:
   # License files
-  - "{% if open_source_license == 'Not open source' %}LICENSE{% endif %}"
-  - "{% if open_source_license == 'Not open source' %}CONTRIBUTORS.txt{% endif %}"
+  - "{% if open_source_license == 'Not open source' %}LICENSE.jinja{% endif %}"
+  - "{% if open_source_license == 'Not open source' %}CONTRIBUTORS.txt.jinja{% endif %}"
   - "{% if open_source_license != 'GPLv3' %}COPYING{% endif %}"
 
   # Celery files
-  - "{% if not use_celery %}config/celery_app.py{% endif %}"
+  - "{% if not use_celery %}config/celery_app.py.jinja{% endif %}"
   - "{% if not use_celery %}{{ project_slug }}/users/tasks.py{% endif %}"
-  - "{% if not use_celery %}{{ project_slug }}/users/tests/test_tasks.py{% endif %}"
+  - "{% if not use_celery %}{{ project_slug }}/users/tests/test_tasks.py.jinja{% endif %}"
   - "{% if not use_celery %}docker/local/django/celery{% endif %}"
   - "{% if not use_celery %}docker/production/django/celery{% endif %}"
 
   # DRF files
-  - "{% if not use_drf %}config/api_router.py{% endif %}"
+  - "{% if not use_drf %}config/api_router.py.jinja{% endif %}"
   - "{% if not use_drf %}{{ project_slug }}/users/api{% endif %}"
   - "{% if not use_drf %}{{ project_slug }}/users/tests/api{% endif %}"
-  - "{% if not use_drf %}apps/{{ project_slug }}/openapi-ts.config.ts{% endif %}"
+  - "{% if not use_drf %}apps/{{ project_slug }}/openapi-ts.config.ts.jinja{% endif %}"
 
   # Async files
-  - "{% if not use_async %}config/asgi.py{% endif %}"
+  - "{% if not use_async %}config/asgi.py.jinja{% endif %}"
   - "{% if not use_async %}config/websocket.py{% endif %}"
 
   # Heroku files
-  - "{% if not use_heroku %}Procfile{% endif %}"
+  - "{% if not use_heroku %}Procfile.jinja{% endif %}"
   - "{% if not use_heroku %}bin{% endif %}"
 
   # Username type - email type keeps managers, username type removes them
   - "{% if username_type == 'username' %}{{ project_slug }}/users/managers.py{% endif %}"
-  - "{% if username_type == 'username' %}{{ project_slug }}/users/tests/test_managers.py{% endif %}"
+  - "{% if username_type == 'username' %}{{ project_slug }}/users/tests/test_managers.py.jinja{% endif %}"
 
 # Post-generation tasks
 _tasks:
@@ -60,7 +61,7 @@ _tasks:
 project_name:
   type: str
   help: "Human-readable project name"
-  default: "Turbo Django"
+  default: "Platform Django"
 
 project_slug:
   type: str

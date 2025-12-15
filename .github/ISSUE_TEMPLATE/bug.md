@@ -29,7 +29,7 @@ labels: bug
 <details>
 <summary>Logs</summary>
 <pre>
-$ copier copy https://github.com/mascah/cookiecutter-turbo-django my_project --trust
-project_name (Turbo Django): ...
+$ copier copy https://github.com/mascah/platform-django-template my_project --trust
+project_name (Platform Django): ...
 </pre>
 </details>

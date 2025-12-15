@@ -1,4 +1,4 @@
-import glob  # noqa: EXE002
+import glob
 import os
 import re
 import sys
@@ -77,7 +77,11 @@ def _fixture_id(ctx):
 
 def build_files_list(base_path: Path):
     """Build a list containing absolute paths to the generated files."""
-    excluded_dirs = {".venv", "__pycache__", "node_modules"}
+    # Exclude directories that shouldn't be checked for Jinja variable replacement
+    # - .venv, __pycache__, node_modules: build/environment artifacts
+    # - turbo/generators: contains Handlebars templates with {{ }} syntax
+    # - packages: may contain JSX with {{ }} object literal syntax
+    excluded_dirs = {".venv", "__pycache__", "node_modules", "generators", "packages"}
 
     f = []
     for dirpath, subdirs, files in base_path.walk():
@@ -101,7 +105,7 @@ def check_paths(paths: Iterable[Path]):
             # Skip known valid patterns (like Django template tags in raw blocks)
             if var_name not in VALID_PATTERNS:
                 # Only fail on patterns that look like our template variables
-                if var_name.islower() and "_" in var_name or var_name in (
+                if (var_name.islower() and "_" in var_name) or var_name in (
                     "project_name",
                     "project_slug",
                     "author_name",
@@ -122,9 +126,14 @@ def generate_project(template_path: Path, dst_path: Path, context: dict, context
         src_path=str(template_path),
         dst_path=str(dst_path),
         data=data,
-        unsafe=True,  # Skip prompts
+        unsafe=True,  # Skip file safety prompts
+        defaults=True,  # Use defaults for missing fields
         vcs_ref="HEAD",  # Use current state
     )
+
+    # Fix import ordering - the correct order depends on the project_slug value
+    # which isn't known until generation (e.g., 'my_project' vs 'zoo_project')
+    sh.ruff("check", "--select", "I", "--fix", ".", _cwd=str(dst_path))
 
     return dst_path
 
@@ -243,7 +252,8 @@ def test_invalid_slug(template_path, tmp_path, context, slug):
     """Invalid slug should fail validation."""
     context.update({"project_slug": slug})
 
-    with pytest.raises(UserMessageError):
+    # Copier 9.x raises ValueError for validation errors
+    with pytest.raises((UserMessageError, ValueError)):
         generate_project(template_path, tmp_path, context, {})
 
 
@@ -264,7 +274,7 @@ def test_trim_domain_email(template_path, tmp_path, context):
 
 def test_pyproject_toml(template_path, tmp_path, context):
     """Test that pyproject.toml is generated correctly."""
-    import tomllib
+    import tomllib  # noqa: PLC0415
 
     author_name = "Project Author"
     author_email = "me@example.com"

@@ -1,5 +1,5 @@
 [project]
-name = "copier-turbo-django"
+name = "platform-django-template"
 version = "2025.12.05"
 description = "A Copier template for creating production-ready modular monolithic Django projects with Turborepo."
 readme = "README.md"
@@ -48,7 +48,7 @@ dependencies = [
   "tox==4.32.0",
   "tox-uv>=1.17",
 ]
-urls = { Repository = "https://github.com/mascah/cookiecutter-turbo-django" }
+urls = { Repository = "https://github.com/mascah/platform-django-template" }
 
 [dependency-groups]
 docs = [
