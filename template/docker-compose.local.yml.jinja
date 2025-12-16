@@ -3,7 +3,7 @@ volumes:
   {% if use_celery %}{{ project_slug }}_local_redis_data: {}{% endif %}
 
 services:
-  django:{% if use_celery %} &django{% endif %}
+  django: &django
     build:
       context: .
       dockerfile: ./docker/local/django/Dockerfile
@@ -27,9 +27,7 @@ services:
     command: /start
 
   tailwind_sidecar:
-    build:
-      context: .
-      dockerfile: ./docker/local/django/Dockerfile
+    <<: *django
     container_name: {{ project_slug }}_local_tailwind
     depends_on:
       - django
